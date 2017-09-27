@@ -1,0 +1,25 @@
+Package: webhose
+Type: Package
+Title: Tools to Work with the 'webhose.io' 'API'
+Version: 0.1.0
+Date: 2017-09-26
+Author: Bob Rudis (bob@rud.is)
+Maintainer: Bob Rudis <bob@rud.is>
+Description: The 'webhose.io' <https::webhose.io/about> 'API' provides access to structured 
+    web data feeds across vertical content domains. Their crawlers download the web, 
+    structure the data and index save it into domain-specific repositories that can be
+    accessed on demand. Methods are provided to query and retrieve content from this 'API'.
+URL: https://github.com/hrbrmstr/webhose
+BugReports: https://github.com/hrbrmstr/webhose/issues
+License: AGPL
+Suggests:
+    testthat,
+    covr
+Depends:
+    R (>= 3.2.0)
+Imports:
+    httr,
+    jsonlite,
+    purrr, 
+    tibble
+RoxygenNote: 6.0.1

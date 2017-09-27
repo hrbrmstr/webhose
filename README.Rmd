@@ -1,0 +1,60 @@
+---
+output: rmarkdown::github_document
+---
+
+# webhose
+
+Tools to Work with the 'webhose.io' 'API'
+
+## Description
+
+The 'webhose.io' <https://webhose.io/about> 'API' provides access to structured 
+web data feeds across vertical content domains. Their crawlers download the web, 
+structure the data and index save it into domain-specific repositories that can be
+accessed on demand. Methods are provided to query and retrieve content from this 'API'.
+
+## TODO
+
+Cover the rest of the wehbose.io API (only the [News/Blog/Discussions API](https://docs.webhose.io/docs/newsblogsdiscussions-api) is covered now).
+
+## What's in the tin?
+
+The following functions are implemented:
+
+- `filter_web_content`:	Retrieve structured posts data from news articles, blog posts and online discussions
+- `fetchall_web_content`:	Fetch all structured posts data from news articles, blog posts and online discussions
+
+## Installation
+
+```{r eval=FALSE}
+devtools::install_github("hrbrmstr/webhose")
+```
+
+```{r message=FALSE, warning=FALSE, error=FALSE, include=FALSE}
+options(width=120)
+```
+
+## Usage
+
+```{r message=FALSE, warning=FALSE, error=FALSE}
+library(webhose)
+
+# current verison
+packageVersion("webhose")
+```
+
+Make just one call and/or handle API pagination on your own:
+
+```{r message=FALSE, warning=FALSE, error=FALSE}
+res <- filter_web_content("(China AND United) language:english site_type:news site:bloomberg.com", ts = 1213456)
+
+str(res)
+```
+
+Auto-handle pagination (NOTE: you're more likelky to rip through your plan API credits this way):
+
+```{r message=FALSE, warning=FALSE, error=FALSE}
+res <- fetchall_web_content("(China AND United) language:english site_type:news site:bloomberg.com",ts = 1213456)
+
+dplyr::glimpse(res)
+```
