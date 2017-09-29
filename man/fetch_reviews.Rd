@@ -10,7 +10,7 @@ fetch_reviews(query, sort = "relevancy", ts = (Sys.time() - (3 * 24 * 60 *
   token = Sys.getenv("WEBHOSE_TOKEN"), ...)
 }
 \arguments{
-\item{query}{A string query containing the filters that define which posts will be returned.}
+\item{query}{A string query containing the filters that define which reviews will be returned.}
 
 \item{sort}{By default the results are sorted by relevancy. Acceptable values are
 "\code{relevancy}", "\code{social.facebook.likes}", "\code{social.facebook.shares}",

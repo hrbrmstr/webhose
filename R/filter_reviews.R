@@ -1,7 +1,7 @@
 #' Retrieve structured reviews data from hundreds of review sites
 #'
 #' @md
-#' @param query A string query containing the filters that define which posts will be returned.
+#' @param query A string query containing the filters that define which reviews will be returned.
 #' @param sort By default the results are sorted by relevancy. Acceptable values are
 #'        "`relevancy`", "`social.facebook.likes`", "`social.facebook.shares`",
 #'        "`social.facebook.comments`", "`social.gplus.shares`", "`social.pinterest.shares`",
