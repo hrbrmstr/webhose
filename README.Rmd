@@ -15,14 +15,21 @@ accessed on demand. Methods are provided to query and retrieve content from this
 
 ## TODO
 
-Cover the rest of the wehbose.io API (only the [News/Blog/Discussions API](https://docs.webhose.io/docs/newsblogsdiscussions-api) is covered now).
+Cover the rest of the wehbose.io API. 
+
+Covered are 
+
+* the [News/Blog/Discussions API](https://docs.webhose.io/docs/newsblogsdiscussions-api)
+* the [Reviews API](https://docs.webhose.io/v1.0/docs/reviews-api)
 
 ## What's in the tin?
 
 The following functions are implemented:
 
-- `filter_web_content`:	Retrieve structured posts data from news articles, blog posts and online discussions
-- `fetchall_web_content`:	Fetch all structured posts data from news articles, blog posts and online discussions
+* `filter_posts`:	Retrieve structured posts data from news articles, blog posts and online discussions
+* `fetch_posts`: Fetch all structured posts data from news articles, blog posts and online discussions
+*  `filter_reviews`: Retrieve structured reviews data from hundreds of review sites
+* `fetch_reviews`: Fetch all structured reviews data from hundreds of review sites
 
 ## Installation
 
@@ -46,7 +53,7 @@ packageVersion("webhose")
 Make just one call and/or handle API pagination on your own:
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
-res <- filter_web_content("(China AND United) language:english site_type:news site:bloomberg.com", ts = 1213456)
+res <- filter_posts("(China AND United) language:english site_type:news site:bloomberg.com", ts = 1213456)
 
 str(res)
 ```
@@ -54,7 +61,7 @@ str(res)
 Auto-handle pagination (NOTE: you're more likelky to rip through your plan API credits this way):
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
-res <- fetchall_web_content("(China AND United) language:english site_type:news site:bloomberg.com",ts = 1213456)
+res <- fetch_posts("(China AND United) language:english site_type:news site:bloomberg.com",ts = 1213456)
 
 dplyr::glimpse(res)
 ```
