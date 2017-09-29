@@ -1,14 +1,11 @@
-mcga <- function(tbl) {
+comma <- function (x, ...) {
 
-  x <- colnames(tbl)
-  x <- tolower(x)
-  x <- gsub("[[:punct:][:space:]]+", "_", x)
-  x <- gsub("_+", "_", x)
-  x <- gsub("(^_|_$)", "", x)
-  x <- make.unique(x, sep = "_")
-
-  colnames(tbl) <- x
-
-  tbl
+  format(x, ..., big.mark = ",", scientific = FALSE, trim = TRUE)
 
 }
+
+c("relevancy", "social.facebook.likes", "social.facebook.shares", "social.facebook.comments",
+  "social.gplus.shares", "social.pinterest.shares", "social.linkedin.shares",
+  "social.stumbledupon.shares", "social.vk.shares", "replies_count", "participants_count",
+  "spam_score", "performance_score", "published", "thread.published", "domain_rank",
+  "ord_in_thread", "rating") -> sort_params
