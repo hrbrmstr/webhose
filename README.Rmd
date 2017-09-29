@@ -21,6 +21,7 @@ Covered are
 
 * the [News/Blog/Discussions API](https://docs.webhose.io/docs/newsblogsdiscussions-api)
 * the [Reviews API](https://docs.webhose.io/v1.0/docs/reviews-api)
+* the [Products API](https://docs.webhose.io/v1.0/docs/ecommerce-product-data-api)
 
 ## What's in the tin?
 
@@ -30,6 +31,8 @@ The following functions are implemented:
 * `fetch_posts`: Fetch all structured posts data from news articles, blog posts and online discussions
 *  `filter_reviews`: Retrieve structured reviews data from hundreds of review sites
 * `fetch_reviews`: Fetch all structured reviews data from hundreds of review sites
+* `filter_prodcuts`: Retrieve structured products data from thousands of online retailers and e-commerce sites
+* `fetch_products`: Fetch all structured products data from thousands of online retailers and e-commerce sites
 
 ## Installation
 
