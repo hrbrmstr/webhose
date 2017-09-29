@@ -2,8 +2,8 @@ Package: webhose
 Type: Package
 Title: Tools to Work with the 'webhose.io' 'API'
 Version: 0.1.0
-Date: 2017-09-26
-Author: Bob Rudis (bob@rud.is)
+Authors@R: c(person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre")),
+             person("Philipp", "Ottolinger", email = "philipp@ottolinger.de", role = "ctb"))
 Maintainer: Bob Rudis <bob@rud.is>
 Description: The 'webhose.io' <https::webhose.io/about> 'API' provides access to structured 
     web data feeds across vertical content domains. Their crawlers download the web, 

@@ -8,6 +8,7 @@
 #' @name webhose
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
+#' @author Philipp Ottolinger (philipp@@ottolinger.de)
 #' @import httr
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr map_df discard %>%

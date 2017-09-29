@@ -1,4 +1,4 @@
-#' Retrieve structured posts data from news articles, blog posts and online discussions
+#' Retrieve structured reviews data from hundreds of review sites
 #'
 #' @md
 #' @param query A string query containing the filters that define which posts will be returned.
@@ -35,15 +35,18 @@
 #' @references [webhose API](https://docs.webhose.io/docs/get-parameters)
 #' @export
 #' @examples \dontrun{
-#' res <- filter_web_content("(China AND United) language:english site_type:news site:bloomberg.com",
-#'                             ts = 1213456)
+#' res <- filter_reviews("site_category:travel rating:<3 (bug OR roach OR cockroach)")
 #' }
-filter_web_content <- function(query, sort = "relevancy",
-                               ts = (Sys.time() - (3 * 24 * 60 * 60)),
-                               order = "desc", size = 100,
-                               accuracy_confidence = NULL, highlight = FALSE,
-                               from = 0, quiet = !interactive(),
-                               token = Sys.getenv("WEBHOSE_TOKEN"), ...) {
+filter_reviews <- function(query,
+                           sort = "relevancy",
+                           ts = (Sys.time() - (3 * 24 * 60 * 60)),
+                           order = "desc",
+                           size = 100,
+                           accuracy_confidence = NULL,
+                           highlight = FALSE,
+                           from = 0,
+                           quiet = !interactive(),
+                           token = Sys.getenv("WEBHOSE_TOKEN"), ...) {
 
   if (inherits(ts, "POSIXct")) ts <- as.numeric(ts)
 
@@ -68,7 +71,7 @@ filter_web_content <- function(query, sort = "relevancy",
   }
 
   httr::GET(
-    url = "https://webhose.io/filterWebContent",
+    url = "https://webhose.io/reviewFilter",
     query = params,
     ...
   ) -> res

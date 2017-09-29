@@ -13,4 +13,6 @@ accessed on demand. Methods are provided to query and retrieve content from this
 }
 \author{
 Bob Rudis (bob@rud.is)
+
+Philipp Ottolinger (philipp@ottolinger.de)
 }

@@ -1,4 +1,4 @@
-#' Fetch all structured posts data from news articles, blog posts and online discussions
+#' Fetch all structured reviews data from hundreds of review sites
 #'
 #' @md
 #' @param query A string query containing the filters that define which posts will be returned.
@@ -32,16 +32,18 @@
 #' @references [webhose API](https://docs.webhose.io/docs/get-parameters)
 #' @export
 #' @examples \dontrun{
-#' res <- fetchall_web_content("(China AND United) language:english site_type:news site:bloomberg.com",
-#'                             ts = 1213456)
+#' res <- fetch_reviews("site_category:travel rating:<3 (bug OR roach OR cockroach)")
 #' }
-fetchall_web_content <- function(query, sort = "relevancy",
-                                 ts = (Sys.time() - (3 * 24 * 60 * 60)),
-                                 order = "desc",
-                                 accuracy_confidence = NULL, highlight = FALSE,
-                                 pre_alloc_max = 30, quiet = !interactive(),
-                                 token = Sys.getenv("WEBHOSE_TOKEN"),
-                                 ...) {
+fetch_reviews <- function(query,
+                          sort = "relevancy",
+                          ts = (Sys.time() - (3 * 24 * 60 * 60)),
+                          order = "desc",
+                          accuracy_confidence = NULL,
+                          highlight = FALSE,
+                          pre_alloc_max = 30,
+                          quiet = !interactive(),
+                          token = Sys.getenv("WEBHOSE_TOKEN"),
+                          ...) {
 
   results <- vector(mode = "list", length = pre_alloc_max)
   res <- NULL
@@ -49,25 +51,42 @@ fetchall_web_content <- function(query, sort = "relevancy",
   i <- 1
   from <- 0
   repeat {
-    res <- filter_web_content(query=query, sort=sort, ts=ts, order=order, size=100,
-                              accuracy_confidence=accuracy_confidence, highlight=highlight,
-                              from=from, token=token, quiet=TRUE, ...)
+    res <- filter_reviews(query=query,
+                          sort=sort,
+                          ts=ts,
+                          order=order,
+                          size=100,
+                          accuracy_confidence=accuracy_confidence,
+                          highlight=highlight,
+                          from=from,
+                          token=token,
+                          quiet=TRUE,
+                          ...)
 
     results[[i]] <- res
+
     if (res[["moreResultsAvailable"]] > 0) {
+
       if (!quiet) message("Fetching next 100 records...")
       i <- i + 1
       from <- from + 100
+
     } else {
+
       break
+
     }
   }
 
-  if (!quiet) message(sprintf("You have %s API calls remaining on your plan",
-                              comma(res$requestsLeft)))
+  if (!quiet) message(
+    sprintf(
+      "You have %s API calls remaining on your plan",
+      comma(res$requestsLeft)
+    )
+  )
 
   purrr::discard(results, is.null) %>%
-    purrr::map_df(~{ .x$posts }) %>%
+    purrr::map_df(~{ .x$reviews }) %>%
     tibble::as_tibble() %>%
     mcga()
 
