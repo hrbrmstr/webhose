@@ -1,7 +1,7 @@
-#' Retrieve structured reviews data from hundreds of review sites
+#' Retrieve structured products data from thousands of online retailers and e-commerce sites
 #'
 #' @md
-#' @param query A string query containing the filters that define which reviews will be returned.
+#' @param query A string query containing the filters that define which products will be returned.
 #' @param sort By default the results are sorted by relevancy. Acceptable values are
 #'        "`relevancy`", "`social.facebook.likes`", "`social.facebook.shares`",
 #'        "`social.facebook.comments`", "`social.gplus.shares`", "`social.pinterest.shares`",
@@ -11,15 +11,8 @@
 #'        "`rating`".
 #' @param ts A timestamp to start the search from. If a `POSIXct` is passed in, it will
 #'        be converted to the necessary value in milliseconds. Default is previous 3 days.
-#' @param order `asc` (ascending) or `desc` (descending, default) sort order for results
 #' @param size Total number of posts returned per request, ranges between `1:100`
 #'        (default is `100`).
-#' @param accuracy_confidence `NULL` or `high`. If `high`, return only posts with high
-#'        extraction accuracy, but removes about 30% of the total matching posts (with
-#'        lower confidence).
-#' @param highlight `FALSE` or `TRUE`. Return the fragments in the post that matched the
-#'        textual boolean query. The matched keywords will be surrounded by `<em/>` tags.
-#'        Default: `FALSE`
 #' @param from Paging parameter (starting record number). Default is `0`.
 #' @param quiet By default, calls in interactive sessions will return updates during fetching.
 #'        Use `TRUE` to suppress these messages.
@@ -35,18 +28,15 @@
 #' @references [webhose API](https://docs.webhose.io/docs/get-parameters)
 #' @export
 #' @examples \dontrun{
-#' res <- filter_reviews("site_category:travel rating:<3 (bug OR roach OR cockroach)")
+#' res <- filter_products("name:iphone")
 #' }
-filter_reviews <- function(query,
-                           sort = "relevancy",
-                           ts = (Sys.time() - (3 * 24 * 60 * 60)),
-                           order = "desc",
-                           size = 100,
-                           accuracy_confidence = NULL,
-                           highlight = FALSE,
-                           from = 0,
-                           quiet = !interactive(),
-                           token = Sys.getenv("WEBHOSE_TOKEN"), ...) {
+filter_products <- function(query,
+                            sort = "relevancy",
+                            ts = (Sys.time() - (3 * 24 * 60 * 60)),
+                            size = 100,
+                            from = 0,
+                            quiet = !interactive(),
+                            token = Sys.getenv("WEBHOSE_TOKEN"), ...) {
 
   if (inherits(ts, "POSIXct")) ts <- as.numeric(ts)
 
@@ -58,20 +48,19 @@ filter_reviews <- function(query,
     format = "json",
     q = query,
     sort = sort,
-    order = order,
     size = size,
     ts = ts,
-    from = from,
-    highlight = highlight
+    from = from
+    #highlight = highlight
   )
 
-  if (!is.null(accuracy_confidence)) {
-    accuracy_confidence <- match.arg(accuracy_confidence, "high")
-    params$accuracy_confidence = accuracy_confidence
-  }
+  # if (!is.null(accuracy_confidence)) {
+  #   accuracy_confidence <- match.arg(accuracy_confidence, "high")
+  #   params$accuracy_confidence = accuracy_confidence
+  # }
 
   httr::GET(
-    url = "https://webhose.io/reviewFilter",
+    url = "http://webhose.io/productFilter",
     query = params,
     ...
   ) -> res
